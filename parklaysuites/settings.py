@@ -12,7 +12,7 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False' if IS_RENDER else 'True').lower() in {
+DEBUG = os.environ.get('DEBUG', 'True' if IS_RENDER else 'True').lower() in {
     '1',
     'true',
     'yes',
