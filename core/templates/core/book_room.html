@@ -1,0 +1,154 @@
+{% extends 'core/layouts/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Reserve Suite | Park-Lay Suites
+{% endblock %}
+
+{% block content %}
+
+<section class="booking-page">
+
+    <div class="container">
+
+        <div class="booking-grid">
+
+            <div class="booking-room-card fade-up">
+
+                {% if room.image %}
+
+                <img
+                    src="{{ room.image.url }}"
+                    alt="{{ room.name }}"
+                    class="booking-room-image"
+                >
+
+                {% endif %}
+
+                <div class="booking-room-content">
+
+                    <p class="section-tag">
+                        LUXURY SUITE
+                    </p>
+
+                    <h1>
+                        {{ room.name }}
+                    </h1>
+
+                    <p class="booking-price">
+                        ₱{{ room.price }} / night
+                    </p>
+
+                    <p class="booking-description">
+                        {{ room.inclusions }}
+                    </p>
+
+                    <ul class="booking-feature-list">
+
+                        <li>✔ Elegant accommodations</li>
+                        <li>✔ Premium hospitality</li>
+                        <li>✔ Relaxation-focused atmosphere</li>
+                        <li>✔ Exceptional guest experience</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="booking-form-card fade-up">
+
+                <p class="section-tag">
+                    COMPLETE RESERVATION
+                </p>
+
+                <h2>
+                    Reserve Your Stay
+                </h2>
+
+                <p class="booking-form-subtitle">
+                    Complete the booking form below to
+                    confirm your luxury stay experience.
+                </p>
+
+                <form
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
+
+                    {% csrf_token %}
+
+                    {% for field in form %}
+
+                    <div class="booking-form-group">
+
+                        <label for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                        </label>
+
+                        {{ field }}
+
+                        {{ field.errors }}
+
+                    </div>
+
+                    {% endfor %}
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary booking-submit"
+                    >
+                        Submit Reservation
+                    </button>
+
+                </form>
+
+                {% if gcash_accounts %}
+
+                <div class="gcash-card">
+
+                    <h3>
+                        Payment Information
+                    </h3>
+
+                    {% for account in gcash_accounts %}
+
+                    <div class="gcash-item">
+
+                        <p>
+                            <strong>
+                                {{ account.account_name }}
+                            </strong>
+                        </p>
+
+                        <p>
+                            {{ account.account_number }}
+                        </p>
+
+                        {% if account.qr_code %}
+
+                        <img
+                            src="{{ account.qr_code.url }}"
+                            alt="GCash QR"
+                        >
+
+                        {% endif %}
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

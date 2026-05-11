@@ -1,0 +1,35 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 14px 32px;
+
+    border-radius: 50px;
+
+    transition: var(--transition-fast);
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: black;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft);
+}
+
+.btn-outline {
+    border: 1px solid white;
+    color: white;
+}
+
+.btn-outline:hover {
+    background: white;
+    color: black;
+}

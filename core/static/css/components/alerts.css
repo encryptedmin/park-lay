@@ -1,0 +1,45 @@
+.alert-container {
+    position: fixed;
+
+    top: 100px;
+    right: 30px;
+
+    z-index: 99999;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.alert {
+    min-width: 320px;
+
+    padding: 18px 22px;
+
+    border-radius: 16px;
+
+    color: white;
+
+    box-shadow: var(--shadow-heavy);
+
+    animation: fadeUp 0.5s ease;
+
+    backdrop-filter: blur(10px);
+}
+
+.alert-success {
+    background: rgba(16, 185, 129, 0.95);
+}
+
+.alert-error {
+    background: rgba(220, 38, 38, 0.95);
+}
+
+.alert-warning {
+    background: rgba(245, 158, 11, 0.95);
+}
+
+.alert-info {
+    background: rgba(59, 130, 246, 0.95);
+}

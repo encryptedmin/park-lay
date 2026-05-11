@@ -1,0 +1,84 @@
+{% extends 'employee/layouts/base.html' %}
+
+{% block title %}Customers{% endblock %}
+
+{% block page_title %}
+Customer Management
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-panel">
+
+    <div class="panel-header">
+
+        <h2>Customers</h2>
+
+        <a
+            href="{% url 'add_customer' %}"
+            class="primary-button"
+        >
+            Add Customer
+        </a>
+
+    </div>
+
+    <table class="employee-table">
+
+        <thead>
+
+            <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for customer in customers %}
+            <tr>
+
+                <td>
+                    {{ customer.first_name }}
+                    {{ customer.last_name }}
+                </td>
+
+                <td>
+                    {{ customer.username }}
+                </td>
+
+                <td>
+                    {{ customer.email }}
+                </td>
+
+                <td>
+
+                    <a
+                        href="{% url 'edit_customer' customer.id %}"
+                        class="primary-button"
+                    >
+                        Edit
+                    </a>
+
+                    <a
+                        href="{% url 'delete_customer' customer.id %}"
+                        class="danger-button"
+                    >
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

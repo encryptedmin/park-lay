@@ -1,0 +1,81 @@
+{% extends 'employee/layouts/base.html' %}
+
+{% block title %}Rooms{% endblock %}
+
+{% block page_title %}
+Rooms Management
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-panel">
+
+    <div class="panel-header">
+
+        <h2>All Rooms</h2>
+
+        <a
+            href="{% url 'add_room' %}"
+            class="primary-button"
+        >
+            Add Room
+        </a>
+
+    </div>
+
+    <div class="rooms-grid">
+
+        {% for room in rooms %}
+        <div class="room-card">
+
+            {% if room.image %}
+            <img
+                src="{{ room.image.url }}"
+                alt="{{ room.name }}"
+            >
+            {% endif %}
+
+            <div class="room-content">
+
+                <h3>{{ room.name }}</h3>
+
+                <p>{{ room.inclusions }}</p>
+
+                <span>
+                    ₱{{ room.price }}
+                </span>
+
+                <div
+                    style="
+                        margin-top: 20px;
+                        display: flex;
+                        gap: 10px;
+                    "
+                >
+
+                    <a
+                        href="{% url 'edit_room' room.id %}"
+                        class="primary-button"
+                    >
+                        Edit
+                    </a>
+
+                    <a
+                        href="{% url 'delete_room' room.id %}"
+                        class="danger-button"
+                    >
+                        Delete
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

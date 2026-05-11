@@ -1,0 +1,77 @@
+<section class="featured-rooms section" id="featured-rooms">
+
+    <div class="container">
+
+        <div class="section-header fade-up">
+
+            <p class="section-tag">
+                FEATURED SUITES
+            </p>
+
+            <h2 class="section-title">
+                Curated Luxury Accommodations
+            </h2>
+
+            <p class="section-subtitle">
+                Explore our handpicked premium suites designed
+                for comfort, sophistication, and relaxation.
+            </p>
+
+        </div>
+
+        <div class="grid-3 room-grid">
+
+            {% for room in featured_rooms %}
+
+            <div class="room-card fade-up">
+
+                <div class="room-image-wrapper">
+
+                    {% if room.image %}
+                    <img
+                        src="{{ room.image.url }}"
+                        alt="{{ room.name }}"
+                        class="room-image"
+                    >
+                    {% endif %}
+
+                </div>
+
+                <div class="room-content">
+
+                    <h3>{{ room.name }}</h3>
+
+                    <p class="room-price">
+                        ₱{{ room.price }} / night
+                    </p>
+
+                    <p class="room-description">
+                        {{ room.inclusions|truncatewords:18 }}
+                    </p>
+
+                    <a
+                        href="{% url 'book_room' room.id %}"
+                        class="btn btn-primary"
+                    >
+                        Reserve Suite
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="rooms-cta fade-up">
+
+            <a href="/rooms/" class="btn btn-outline-dark">
+                View All Suites
+            </a>
+
+        </div>
+
+    </div>
+
+</section>

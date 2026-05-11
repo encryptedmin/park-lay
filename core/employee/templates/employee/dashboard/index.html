@@ -1,0 +1,69 @@
+{% extends 'employee/layouts/base.html' %}
+
+{% block title %}Employee Dashboard{% endblock %}
+
+{% block page_title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <h3>Total Bookings</h3>
+        <p>{{ total_bookings }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Pending</h3>
+        <p>{{ pending_bookings }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Confirmed</h3>
+        <p>{{ confirmed_bookings }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Completed</h3>
+        <p>{{ completed_bookings }}</p>
+    </div>
+
+</div>
+
+<div class="dashboard-panel">
+
+    <div class="panel-header">
+        <h2>Recent Bookings</h2>
+    </div>
+
+    <table class="employee-table">
+
+        <thead>
+            <tr>
+                <th>Guest</th>
+                <th>Room</th>
+                <th>Status</th>
+                <th>Booking Type</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for booking in recent_bookings %}
+            <tr>
+                <td>{{ booking.guest_name }}</td>
+                <td>{{ booking.room.name }}</td>
+                <td>{{ booking.status }}</td>
+                <td>{{ booking.booking_type }}</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

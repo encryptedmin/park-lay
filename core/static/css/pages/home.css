@@ -1,0 +1,305 @@
+.hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+
+    color: white;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.55),
+            rgba(0, 0, 0, 0.65)
+        ),
+        url('/static/images/hero/luxury-hero.jpg');
+
+    background-size: cover;
+    background-position: center;
+
+    animation: zoomHero 12s ease-in-out infinite alternate;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.25);
+
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 5;
+
+    max-width: 800px;
+}
+
+.hero-tag,
+.section-tag {
+    letter-spacing: 0.35rem;
+    text-transform: uppercase;
+
+    color: var(--color-primary);
+
+    margin-bottom: 20px;
+
+    font-size: 0.9rem;
+}
+
+.hero-title {
+    font-size: 5.5rem;
+    line-height: 1.1;
+
+    margin-bottom: 30px;
+}
+
+.hero-description {
+    font-size: 1.2rem;
+
+    max-width: 650px;
+
+    color: rgba(255, 255, 255, 0.85);
+
+    margin-bottom: 40px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.about {
+    background: #f8fafc;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 80px;
+    align-items: center;
+}
+
+.about-image img {
+    border-radius: 30px;
+    box-shadow: var(--shadow-heavy);
+}
+
+.about-content h2 {
+    font-size: 3rem;
+    margin-bottom: 25px;
+}
+
+.about-content p {
+    margin-bottom: 20px;
+    color: var(--color-muted);
+}
+
+.amenities {
+    background: white;
+}
+
+.featured-rooms {
+    background: #f8fafc;
+}
+
+.room-grid,
+.amenities-grid {
+    margin-top: 70px;
+}
+
+.rooms-cta {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.btn-outline-dark {
+    border: 1px solid var(--color-dark);
+    color: var(--color-dark);
+}
+
+.btn-outline-dark:hover {
+    background: var(--color-dark);
+    color: white;
+}
+
+.scroll-indicator {
+    position: absolute;
+
+    bottom: 40px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 10;
+}
+
+.scroll-indicator span {
+    display: block;
+
+    width: 2px;
+    height: 60px;
+
+    background: white;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.scroll-indicator span::after {
+    content: '';
+
+    position: absolute;
+
+    top: -20px;
+    left: 0;
+
+    width: 100%;
+    height: 20px;
+
+    background: var(--color-primary);
+
+    animation: scrollDown 2s infinite;
+}
+
+@keyframes scrollDown {
+    0% {
+        top: -20px;
+    }
+
+    100% {
+        top: 60px;
+    }
+}
+
+@media (max-width: 992px) {
+
+    .hero-title {
+        font-size: 4rem;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .hero {
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+    }
+
+    .about-content h2 {
+        font-size: 2.2rem;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+}
+
+.testimonials {
+    background: white;
+}
+
+.testimonial-grid {
+    margin-top: 70px;
+}
+
+.testimonial-card {
+    background: white;
+
+    padding: 40px;
+
+    border-radius: 24px;
+
+    box-shadow: var(--shadow-soft);
+
+    transition: var(--transition-medium);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-10px);
+
+    box-shadow: var(--shadow-heavy);
+}
+
+.stars {
+    color: var(--color-primary);
+
+    font-size: 1.3rem;
+
+    margin-bottom: 20px;
+}
+
+.testimonial-text {
+    color: var(--color-muted);
+
+    margin-bottom: 25px;
+}
+
+.booking-cta {
+    position: relative;
+
+    padding: 140px 0;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.7),
+            rgba(0,0,0,0.75)
+        ),
+        url('/static/images/hero/luxury-hero.jpg');
+
+    background-size: cover;
+    background-position: center;
+
+    text-align: center;
+
+    color: white;
+}
+
+.booking-content {
+    position: relative;
+    z-index: 5;
+
+    max-width: 750px;
+}
+
+.booking-content h2 {
+    font-size: 4rem;
+
+    margin-bottom: 25px;
+}
+
+.booking-content p {
+    margin-bottom: 40px;
+
+    color: rgba(255,255,255,0.85);
+}
+
+@media (max-width: 768px) {
+
+    .booking-content h2 {
+        font-size: 2.8rem;
+    }
+}

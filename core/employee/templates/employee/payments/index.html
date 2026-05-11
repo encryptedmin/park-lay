@@ -1,0 +1,54 @@
+{% extends 'employee/layouts/base.html' %}
+
+{% block title %}Payments{% endblock %}
+
+{% block page_title %}
+Payments
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-panel">
+
+    <table class="employee-table">
+
+        <thead>
+            <tr>
+                <th>Guest</th>
+                <th>Reference</th>
+                <th>Proof</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for booking in bookings %}
+            <tr>
+
+                <td>{{ booking.guest_name }}</td>
+
+                <td>{{ booking.gcash_reference }}</td>
+
+                <td>
+
+                    {% if booking.payment_proof %}
+                    <a
+                        href="{{ booking.payment_proof.url }}"
+                        target="_blank"
+                    >
+                        View Proof
+                    </a>
+                    {% endif %}
+
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

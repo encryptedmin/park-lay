@@ -1,0 +1,123 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        {% block title %}
+        Admin Dashboard
+        {% endblock %}
+
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/main.css' %}"
+    >
+
+</head>
+
+<body class="admin-body">
+
+    <div class="admin-layout">
+
+        <aside class="admin-sidebar">
+
+            <div>
+
+                <div class="admin-brand">
+
+                    <img
+                        src="{% static 'images/branding/logo.png' %}"
+                        alt="Park-Lay Suites"
+                    >
+
+                    <h2>
+                        Park-Lay
+                    </h2>
+
+                </div>
+
+                <nav class="admin-nav">
+
+                    <a href="{% url 'employee_dashboard' %}">
+                        Dashboard
+                    </a>
+
+                    <a href="#pending-bookings">
+                        Pending Bookings
+                    </a>
+
+                    <a href="#confirmed-bookings">
+                        Confirmed Bookings
+                    </a>
+
+                    <a href="#rooms-management">
+                        Rooms
+                    </a>
+
+                    <a href="#payments-management">
+                        Payments
+                    </a>
+
+                    <a href="{% url 'add_room' %}">
+                        Add Room
+                    </a>
+
+                    <a href="{% url 'add_gcash_account' %}">
+                        Add Payment Method
+                    </a>
+
+                    <a href="{% url 'manage_customers' %}">
+                        Customers
+                    </a>
+
+                    <a href="{% url 'walkin_booking' %}">
+                        Walk-In Booking
+                    </a>
+
+                </nav>
+
+            </div>
+
+            <div class="admin-sidebar-bottom">
+
+                <a
+                    href="/logout/"
+                    class="admin-logout"
+                >
+                    Logout
+                </a>
+
+            </div>
+
+        </aside>
+
+        <main class="admin-main">
+
+            {% include 'core/partials/alerts.html' %}
+
+            {% block content %}
+            {% endblock %}
+
+        </main>
+
+    </div>
+
+    <script src="{% static 'js/alerts.js' %}"></script>
+
+    <script src="{% static 'js/confirmations.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a href="/" class="logo">
+            Park-Lay Suites
+        </a>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="/">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="/rooms/">
+                    Rooms
+                </a>
+            </li>
+
+            <li>
+                <a href="/#amenities">
+                    Amenities
+                </a>
+            </li>
+
+            <li>
+                <a href="/#featured-rooms">
+                    Suites
+                </a>
+            </li>
+
+            {% if request.user.is_authenticated %}
+
+            <li>
+                <a href="/dashboard/">
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="/logout/">
+                    Logout
+                </a>
+            </li>
+
+            {% else %}
+
+            <li>
+                <a href="/login/">
+                    Login
+                </a>
+            </li>
+
+            {% endif %}
+
+        </ul>
+
+    </div>
+
+</nav>

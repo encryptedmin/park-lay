@@ -1,0 +1,98 @@
+{% extends 'core/layouts/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Register | Park-Lay Suites
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-page">
+
+    <div class="auth-showcase">
+
+        <div class="auth-showcase-content fade-up">
+
+            <p class="section-tag">
+                BEGIN YOUR EXPERIENCE
+            </p>
+
+            <h1>
+                Create Your Luxury Stay Account
+            </h1>
+
+            <p>
+                Register today and enjoy seamless reservations,
+                premium accommodations, and exclusive experiences.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="auth-form-wrapper">
+
+        <div class="auth-form-card fade-up">
+
+            <div class="auth-logo">
+                <img
+                    src="{% static 'images/branding/logo.png' %}"
+                    alt="Park-Lay Suites"
+                >
+            </div>
+
+            <h2>
+                Create Account
+            </h2>
+
+            <p class="auth-subtitle">
+                Join Park-Lay Suites today.
+            </p>
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                {% for field in form %}
+
+                <div class="auth-form-group">
+
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field }}
+
+                    {{ field.errors }}
+
+                </div>
+
+                {% endfor %}
+
+                <button
+                    type="submit"
+                    class="btn btn-primary auth-submit"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+            <p class="auth-footer-text">
+
+                Already have an account?
+
+                <a href="/login/">
+                    Sign In
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

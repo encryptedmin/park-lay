@@ -1,0 +1,339 @@
+.admin-body {
+    background: #f1f5f9;
+}
+
+.admin-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    background: #0f172a;
+
+    color: white;
+
+    padding: 40px 25px;
+
+    position: sticky;
+    top: 0;
+
+    height: 100vh;
+
+    border-right: 1px solid rgba(255,255,255,0.05);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    overflow-y: auto;
+}
+
+.admin-brand {
+    margin-bottom: 60px;
+
+    text-align: center;
+}
+
+.admin-brand img {
+    width: 90px;
+
+    margin-bottom: 20px;
+}
+
+.admin-brand h2 {
+    font-size: 2rem;
+}
+
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.admin-nav a {
+    color: rgba(255,255,255,0.72);
+
+    padding: 16px 18px;
+
+    border-radius: 14px;
+
+    transition: var(--transition-fast);
+
+    font-weight: 500;
+}
+
+.admin-nav a:hover {
+    background: rgba(255,255,255,0.08);
+
+    color: white;
+}
+
+.admin-main {
+    padding: 45px;
+}
+
+.dashboard-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 30px;
+
+    margin-bottom: 50px;
+}
+
+.dashboard-hero h1 {
+    font-size: 3.5rem;
+
+    line-height: 1.1;
+
+    margin-bottom: 20px;
+}
+
+.hero-copy {
+    color: var(--color-muted);
+
+    max-width: 750px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.dashboard-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 25px;
+
+    margin-bottom: 40px;
+}
+
+.summary-card {
+    background: white;
+
+    border-radius: 24px;
+
+    padding: 35px;
+
+    box-shadow: var(--shadow-soft);
+}
+
+.summary-title {
+    display: block;
+
+    margin-bottom: 14px;
+
+    color: var(--color-muted);
+}
+
+.summary-card strong {
+    font-size: 3rem;
+
+    display: block;
+
+    margin-bottom: 10px;
+}
+
+.summary-copy {
+    color: var(--color-muted);
+}
+
+.glass-card {
+    background: rgba(255,255,255,0.85);
+
+    backdrop-filter: blur(18px);
+
+    border-radius: 30px;
+
+    padding: 35px;
+
+    margin-bottom: 40px;
+
+    box-shadow: var(--shadow-soft);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 30px;
+}
+
+.panel-header h2 {
+    margin-bottom: 10px;
+}
+
+.panel-header p {
+    color: var(--color-muted);
+}
+
+.pill {
+    background: rgba(212,175,55,0.15);
+
+    color: var(--color-primary);
+
+    padding: 10px 16px;
+
+    border-radius: 999px;
+
+    font-weight: 600;
+}
+
+.dashboard-table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.dashboard-table th {
+    text-align: left;
+
+    padding-bottom: 18px;
+
+    color: var(--color-muted);
+
+    font-weight: 600;
+}
+
+.dashboard-table td {
+    padding: 18px 0;
+
+    border-top: 1px solid rgba(15,23,42,0.08);
+}
+
+.table-scroll {
+    overflow-x: auto;
+}
+
+.booking-actions {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.room-grid,
+.gcash-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.room-card,
+.gcash-card {
+    background: white;
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow-soft);
+}
+
+.room-image,
+.gcash-qr-image {
+    width: 100%;
+    height: 240px;
+
+    object-fit: cover;
+}
+
+.room-card-body,
+.gcash-card-body {
+    padding: 25px;
+}
+
+.room-card-footer,
+.gcash-card-actions {
+    padding: 0 25px 25px;
+}
+
+.empty-state,
+.empty-state-card,
+.muted {
+    color: var(--color-muted);
+}
+
+@media (max-width: 1400px) {
+
+    .dashboard-summary-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .room-grid,
+    .gcash-card-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1100px) {
+
+    .admin-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-sidebar {
+        height: auto;
+
+        position: relative;
+    }
+
+    .admin-main {
+        padding: 30px 20px;
+    }
+
+    .dashboard-hero {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .dashboard-summary-cards,
+    .room-grid,
+    .gcash-card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-hero h1 {
+        font-size: 2.5rem;
+    }
+}
+.admin-sidebar-bottom {
+    padding-top: 30px;
+}
+
+.admin-logout {
+    display: block;
+
+    width: 100%;
+
+    padding: 16px 18px;
+
+    border-radius: 14px;
+
+    background: rgba(220,38,38,0.15);
+
+    color: #fca5a5;
+
+    text-align: center;
+
+    transition: var(--transition-fast);
+}
+
+.admin-logout:hover {
+    background: rgba(220,38,38,0.25);
+
+    color: white;
+}

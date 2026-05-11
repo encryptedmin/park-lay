@@ -1,0 +1,167 @@
+.booking-page {
+    min-height: 100vh;
+
+    background: #f8fafc;
+
+    padding: 140px 0 100px;
+}
+
+.booking-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+
+    gap: 50px;
+}
+
+.booking-room-card,
+.booking-form-card {
+    background: white;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow-soft);
+}
+
+.booking-room-image {
+    width: 100%;
+    height: 420px;
+
+    object-fit: cover;
+}
+
+.booking-room-content {
+    padding: 40px;
+}
+
+.booking-room-content h1 {
+    font-size: 3rem;
+
+    margin-bottom: 20px;
+}
+
+.booking-price {
+    color: var(--color-primary);
+
+    font-size: 1.3rem;
+    font-weight: 700;
+
+    margin-bottom: 25px;
+}
+
+.booking-description {
+    color: var(--color-muted);
+
+    margin-bottom: 35px;
+}
+
+.booking-feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.booking-feature-list li {
+    color: var(--color-dark);
+}
+
+.booking-form-card {
+    padding: 45px;
+}
+
+.booking-form-card h2 {
+    font-size: 2.3rem;
+
+    margin-bottom: 15px;
+}
+
+.booking-form-subtitle {
+    color: var(--color-muted);
+
+    margin-bottom: 35px;
+}
+
+.booking-form-group {
+    margin-bottom: 24px;
+}
+
+.booking-form-group label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-weight: 600;
+}
+
+.booking-form-group input,
+.booking-form-group textarea,
+.booking-form-group select {
+    width: 100%;
+
+    padding: 16px 20px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(15,23,42,0.1);
+
+    background: #f8fafc;
+
+    transition: var(--transition-fast);
+}
+
+.booking-form-group input:focus,
+.booking-form-group textarea:focus,
+.booking-form-group select:focus {
+    border-color: var(--color-primary);
+
+    box-shadow: 0 0 0 4px rgba(212,175,55,0.15);
+}
+
+.booking-submit {
+    width: 100%;
+}
+
+.gcash-card {
+    margin-top: 35px;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    background: #f8fafc;
+}
+
+.gcash-card h3 {
+    margin-bottom: 20px;
+}
+
+.gcash-item {
+    margin-bottom: 25px;
+}
+
+.gcash-item img {
+    width: 180px;
+
+    border-radius: 14px;
+
+    margin-top: 15px;
+}
+
+@media (max-width: 992px) {
+
+    .booking-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .booking-room-content h1 {
+        font-size: 2.3rem;
+    }
+
+    .booking-form-card {
+        padding: 35px 25px;
+    }
+}

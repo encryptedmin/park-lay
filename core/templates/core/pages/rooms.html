@@ -1,0 +1,89 @@
+{% extends 'core/layouts/base.html' %}
+
+{% block title %}
+Luxury Suites | Park-Lay Suites
+{% endblock %}
+
+{% block content %}
+
+<section class="rooms-page">
+
+    <div class="rooms-hero">
+
+        <div class="rooms-overlay"></div>
+
+        <div class="container rooms-hero-content">
+
+            <p class="section-tag">
+                LUXURY ACCOMMODATIONS
+            </p>
+
+            <h1>
+                Explore Our Premium Suites
+            </h1>
+
+            <p>
+                Elegant spaces crafted for exceptional comfort,
+                sophistication, and unforgettable stays.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="rooms-list section">
+
+        <div class="container">
+
+            <div class="grid-3 room-grid">
+
+                {% for room in rooms %}
+
+                <div class="room-card fade-up">
+
+                    <div class="room-image-wrapper">
+
+                        {% if room.image %}
+                        <img
+                            src="{{ room.image.url }}"
+                            alt="{{ room.name }}"
+                            class="room-image"
+                        >
+                        {% endif %}
+
+                    </div>
+
+                    <div class="room-content">
+
+                        <h3>{{ room.name }}</h3>
+
+                        <p class="room-price">
+                            ₱{{ room.price }} / night
+                        </p>
+
+                        <p class="room-description">
+                            {{ room.inclusions|truncatewords:18 }}
+                        </p>
+
+                        <a
+                            href="{% url 'book_room' room.id %}"
+                            class="btn btn-primary"
+                        >
+                            Reserve Suite
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

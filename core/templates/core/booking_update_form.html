@@ -1,0 +1,143 @@
+{% extends 'core/layouts/base.html' %}
+
+{% block title %}
+Modify Booking | Park-Lay Suites
+{% endblock %}
+
+{% block content %}
+
+<section class="booking-page">
+
+    <div class="container">
+
+        <div class="booking-grid">
+
+            <div class="booking-room-card fade-up">
+
+                {% if booking.room.image %}
+
+                <img
+                    src="{{ booking.room.image.url }}"
+                    alt="{{ booking.room.name }}"
+                    class="booking-room-image"
+                >
+
+                {% endif %}
+
+                <div class="booking-room-content">
+
+                    <p class="section-tag">
+                        MODIFY RESERVATION
+                    </p>
+
+                    <h1>
+                        {{ booking.room.name }}
+                    </h1>
+
+                    <p class="booking-price">
+                        Current Total:
+                        ₱{{ booking.total_price }}
+                    </p>
+
+                    <p class="booking-description">
+
+                        Update your reservation details while
+                        maintaining your premium Park-Lay experience.
+
+                    </p>
+
+                    <ul class="booking-feature-list">
+
+                        <li>
+                            ✔ Existing booking protections preserved
+                        </li>
+
+                        <li>
+                            ✔ Availability validation enabled
+                        </li>
+
+                        <li>
+                            ✔ Booking status restrictions active
+                        </li>
+
+                        <li>
+                            ✔ Non-refundable payment policy enforced
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="booking-form-card fade-up">
+
+                <p class="section-tag">
+                    UPDATE RESERVATION
+                </p>
+
+                <h2>
+                    Modify Booking
+                </h2>
+
+                <p class="booking-form-subtitle">
+
+                    Carefully review your reservation updates
+                    before saving changes.
+
+                </p>
+
+                <form
+                    method="POST"
+                    data-confirm="Save booking modifications?"
+                >
+
+                    {% csrf_token %}
+
+                    {% for field in form %}
+
+                    <div class="booking-form-group">
+
+                        <label for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                        </label>
+
+                        {{ field }}
+
+                        {{ field.errors }}
+
+                    </div>
+
+                    {% endfor %}
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary booking-submit"
+                    >
+                        Save Booking Changes
+                    </button>
+
+                </form>
+
+                <br>
+
+                <a
+                    href="{% if is_employee_view %}
+    {% url 'employee_dashboard' %}
+{% else %}
+    {% url 'customer_dashboard' %}
+{% endif %}"
+                    class="btn btn-outline-dark"
+                >
+                    Return To Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

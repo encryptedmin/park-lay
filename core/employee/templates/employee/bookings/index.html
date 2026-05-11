@@ -1,0 +1,284 @@
+{% extends 'employee/layouts/base.html' %}
+
+{% block title %}
+Bookings
+{% endblock %}
+
+{% block page_title %}
+Reservations Management
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-panel">
+
+    <div class="panel-header">
+
+        <div>
+
+            <h2
+                style="
+                    margin-bottom: 6px;
+                "
+            >
+                Reservation Records
+            </h2>
+
+            <p
+                style="
+                    color: #64748b;
+                    font-size: 14px;
+                "
+            >
+                Manage all online and walk-in reservations.
+            </p>
+
+        </div>
+
+        <a
+            href="{% url 'walkin_booking' %}"
+            class="primary-button"
+        >
+            + Walk-In Booking
+        </a>
+
+    </div>
+
+</div>
+
+<div
+    style="
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    "
+>
+
+    {% for booking in bookings %}
+
+    <div
+        style="
+            background: white;
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(15,23,42,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        "
+    >
+
+        <div
+            style="
+                display: flex;
+                align-items: center;
+                gap: 18px;
+                min-width: 280px;
+            "
+        >
+
+            {% if booking.room.image %}
+            <img
+                src="{{ booking.room.image.url }}"
+                alt="{{ booking.room.name }}"
+                style="
+                    width: 85px;
+                    height: 85px;
+                    border-radius: 16px;
+                    object-fit: cover;
+                "
+            >
+            {% endif %}
+
+            <div>
+
+                <h3
+                    style="
+                        margin-bottom: 6px;
+                    "
+                >
+                    {{ booking.room.name }}
+                </h3>
+
+                <p
+                    style="
+                        color: #64748b;
+                        font-size: 14px;
+                        margin-bottom: 6px;
+                    "
+                >
+                    {{ booking.guest_name }}
+                </p>
+
+                <span
+                    style="
+                        display: inline-block;
+                        padding: 6px 10px;
+                        border-radius: 999px;
+                        font-size: 12px;
+                        background:
+                        {% if booking.status == 'Confirmed' %}
+                            #dcfce7
+                        {% elif booking.status == 'Pending' %}
+                            #fef3c7
+                        {% elif booking.status == 'Cancelled' %}
+                            #fee2e2
+                        {% else %}
+                            #e2e8f0
+                        {% endif %};
+                        color:
+                        {% if booking.status == 'Confirmed' %}
+                            #166534
+                        {% elif booking.status == 'Pending' %}
+                            #92400e
+                        {% elif booking.status == 'Cancelled' %}
+                            #991b1b
+                        {% else %}
+                            #334155
+                        {% endif %};
+                    "
+                >
+                    {{ booking.status }}
+                </span>
+
+            </div>
+
+        </div>
+
+        <div
+            style="
+                display: flex;
+                gap: 40px;
+                align-items: center;
+                flex-wrap: wrap;
+            "
+        >
+
+            <div>
+
+                <small
+                    style="
+                        display: block;
+                        color: #64748b;
+                        margin-bottom: 4px;
+                    "
+                >
+                    Check In
+                </small>
+
+                <strong>
+                    {{ booking.check_in }}
+                </strong>
+
+            </div>
+
+            <div>
+
+                <small
+                    style="
+                        display: block;
+                        color: #64748b;
+                        margin-bottom: 4px;
+                    "
+                >
+                    Check Out
+                </small>
+
+                <strong>
+                    {{ booking.check_out }}
+                </strong>
+
+            </div>
+
+            <div>
+
+                <small
+                    style="
+                        display: block;
+                        color: #64748b;
+                        margin-bottom: 4px;
+                    "
+                >
+                    Total Price
+                </small>
+
+                <strong
+                    style="
+                        font-size: 18px;
+                    "
+                >
+                    ₱{{ booking.total_price }}
+                </strong>
+
+            </div>
+
+        </div>
+
+        <div
+            style="
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+            "
+        >
+
+            {% if booking.status == 'Pending' %}
+
+            <a
+                href="{% url 'confirm_booking' booking.id %}"
+                class="success-button"
+                onclick="return confirm('Confirm this booking?')"
+            >
+                Confirm
+            </a>
+
+            <a
+                href="{% url 'reject_booking' booking.id %}"
+                class="danger-button"
+                onclick="return confirm('Reject this booking?')"
+            >
+                Reject
+            </a>
+
+            {% endif %}
+
+            {% if booking.status == 'Confirmed' %}
+
+            <a
+                href="{% url 'cancel_active_booking' booking.id %}"
+                class="danger-button"
+                onclick="return confirm('Cancel this reservation?')"
+            >
+                Cancel
+            </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div
+        style="
+            background: white;
+            border-radius: 18px;
+            padding: 40px;
+            text-align: center;
+            color: #64748b;
+        "
+    >
+
+        No reservations found.
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

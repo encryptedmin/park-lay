@@ -1,0 +1,287 @@
+{% extends 'employee/layouts/base.html' %}
+
+{% block title %}
+Walk-In Booking
+{% endblock %}
+
+{% block page_title %}
+Walk-In Reservation
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-panel">
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>
+                    Guest Name
+                </label>
+
+                {{ form.guest_name }}
+
+                {{ form.guest_name.errors }}
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    Select Room
+                </label>
+
+                <select
+                    name="room"
+                    id="id_room"
+                    required
+                >
+
+                    <option value="">
+                        Select Room
+                    </option>
+
+                    {% for room in form.fields.room.queryset %}
+
+                    <option
+                        value="{{ room.id }}"
+                        data-price="{{ room.price }}"
+                        data-image="{% if room.image %}{{ room.image.url }}{% endif %}"
+                        data-name="{{ room.name }}"
+                    >
+                        {{ room.name }} - ₱{{ room.price }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+                {{ form.room.errors }}
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    Check In
+                </label>
+
+                {{ form.check_in }}
+
+                {{ form.check_in.errors }}
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    Check Out
+                </label>
+
+                {{ form.check_out }}
+
+                {{ form.check_out.errors }}
+
+            </div>
+
+        </div>
+
+        <div
+            style="
+                margin-top: 24px;
+                background: #f8fafc;
+                border-radius: 18px;
+                padding: 20px;
+            "
+        >
+
+            <div
+                style="
+                    display: flex;
+                    gap: 20px;
+                    align-items: center;
+                "
+            >
+
+                <img
+                    id="room-preview-image"
+                    src=""
+                    style="
+                        width: 100px;
+                        height: 100px;
+                        object-fit: cover;
+                        border-radius: 14px;
+                        display: none;
+                    "
+                >
+
+                <div>
+
+                    <h3
+                        id="selected-room-name"
+                        style="
+                            margin-bottom: 8px;
+                        "
+                    >
+                        No Room Selected
+                    </h3>
+
+                    <p>
+                        Nights:
+                        <strong id="booking-nights">
+                            0
+                        </strong>
+                    </p>
+
+                    <p>
+                        Total Price:
+                        <strong id="booking-total">
+                            ₱0
+                        </strong>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button
+            type="submit"
+            class="primary-button"
+            style="margin-top: 24px;"
+            onclick="return confirm('Create this walk-in reservation?')"
+        >
+            Create Walk-In Booking
+        </button>
+
+    </form>
+
+</div>
+
+<script>
+
+const roomField =
+    document.getElementById('id_room');
+
+const checkInField =
+    document.getElementById('id_check_in');
+
+const checkOutField =
+    document.getElementById('id_check_out');
+
+const roomName =
+    document.getElementById('selected-room-name');
+
+const roomImage =
+    document.getElementById('room-preview-image');
+
+const totalNights =
+    document.getElementById('booking-nights');
+
+const totalPrice =
+    document.getElementById('booking-total');
+
+
+function calculateBookingSummary() {
+
+    const selectedOption =
+        roomField.options[roomField.selectedIndex];
+
+    if (!selectedOption.value) {
+
+        roomName.innerText =
+            'No Room Selected';
+
+        roomImage.style.display =
+            'none';
+
+        totalNights.innerText = '0';
+
+        totalPrice.innerText = '₱0';
+
+        return;
+    }
+
+    const roomPrice =
+        parseFloat(
+            selectedOption.dataset.price
+        );
+
+    const roomImageUrl =
+        selectedOption.dataset.image;
+
+    const roomTitle =
+        selectedOption.dataset.name;
+
+    roomName.innerText =
+        roomTitle;
+
+    if (roomImageUrl) {
+
+        roomImage.src =
+            roomImageUrl;
+
+        roomImage.style.display =
+            'block';
+    }
+
+    const checkIn =
+        new Date(checkInField.value);
+
+    const checkOut =
+        new Date(checkOutField.value);
+
+    let nights =
+        Math.ceil(
+            (checkOut - checkIn)
+            /
+            (1000 * 60 * 60 * 24)
+        );
+
+    if (
+        isNaN(nights)
+        ||
+        nights <= 0
+    ) {
+        nights = 1;
+    }
+
+    const total =
+        roomPrice * nights;
+
+    totalNights.innerText =
+        nights;
+
+    totalPrice.innerText =
+        `₱${total.toLocaleString()}`;
+}
+
+
+roomField.addEventListener(
+    'change',
+    calculateBookingSummary
+);
+
+checkInField.addEventListener(
+    'change',
+    calculateBookingSummary
+);
+
+checkOutField.addEventListener(
+    'change',
+    calculateBookingSummary
+);
+
+calculateBookingSummary();
+
+</script>
+
+{% endblock %}

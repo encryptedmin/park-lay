@@ -1,0 +1,39 @@
+.rooms-hero {
+    position: relative;
+
+    height: 60vh;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.6),
+            rgba(0,0,0,0.7)
+        ),
+        url('/static/images/hero/luxury-hero.jpg');
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+
+    color: white;
+}
+
+.rooms-hero-content {
+    position: relative;
+    z-index: 5;
+}
+
+.rooms-hero h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.rooms-hero p {
+    max-width: 650px;
+    color: rgba(255,255,255,0.85);
+}
+
+.rooms-list {
+    background: #f8fafc;
+}

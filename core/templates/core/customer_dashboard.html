@@ -1,0 +1,194 @@
+{% extends 'core/layouts/base.html' %}
+
+{% block title %}
+My Dashboard | Park-Lay Suites
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-page">
+
+    <div class="container">
+
+        <div class="dashboard-header fade-up">
+
+            <p class="section-tag">
+                MY RESERVATIONS
+            </p>
+
+            <h1>
+                Welcome Back,
+                {{ request.user.first_name|default:request.user.username }}
+            </h1>
+
+            <p>
+                Manage your reservations, monitor booking
+                statuses, and continue your luxury experience.
+            </p>
+
+        </div>
+
+        {% if bookings %}
+
+        <div class="booking-list">
+
+            {% for booking in bookings %}
+
+            <div class="booking-card fade-up">
+
+                <div class="booking-card-grid">
+
+                    <div class="booking-image">
+
+                        {% if booking.room.image %}
+
+                        <img
+                            src="{{ booking.room.image.url }}"
+                            alt="{{ booking.room.name }}"
+                        >
+
+                        {% endif %}
+
+                    </div>
+
+                    <div class="booking-content">
+
+                        <div class="booking-top">
+
+                            <div class="booking-title">
+
+                                <h2>
+                                    {{ booking.room.name }}
+                                </h2>
+
+                                <p class="booking-price">
+                                    ₱{{ booking.total_price }}
+                                </p>
+
+                            </div>
+
+                            <div class="
+                                booking-status
+                                status-{{ booking.status|lower }}
+                            ">
+
+                                {{ booking.status }}
+
+                            </div>
+
+                        </div>
+
+                        <div class="booking-meta">
+
+                            <div class="booking-meta-card">
+
+                                <span>
+                                    Check In
+                                </span>
+
+                                <strong>
+                                    {{ booking.check_in }}
+                                </strong>
+
+                            </div>
+
+                            <div class="booking-meta-card">
+
+                                <span>
+                                    Check Out
+                                </span>
+
+                                <strong>
+                                    {{ booking.check_out }}
+                                </strong>
+
+                            </div>
+
+                            <div class="booking-meta-card">
+
+                                <span>
+                                    Booking Type
+                                </span>
+
+                                <strong>
+                                    {{ booking.booking_type }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                        <div class="booking-actions">
+
+                            {% if booking.status == 'Pending' or booking.status == 'Confirmed' %}
+
+                            <a
+                                href="{% url 'edit_booking' booking.id %}"
+                                class="btn btn-primary"
+                            >
+                                Modify Booking
+                            </a>
+
+                            {% endif %}
+
+                            {% if booking.can_cancel %}
+
+                            <form
+                                method="POST"
+                                action="{% url 'cancel_booking' booking.id %}"
+                                data-confirm="Are you sure you want to cancel this booking?"
+                            >
+
+                                {% csrf_token %}
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-danger"
+                                >
+                                    Cancel Booking
+                                </button>
+
+                            </form>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-bookings fade-up">
+
+            <h2>
+                No Reservations Yet
+            </h2>
+
+            <p>
+                Begin your luxury stay experience by
+                exploring our premium suites.
+            </p>
+
+            <br>
+
+            <a href="/rooms/" class="btn btn-primary">
+                Explore Suites
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}
