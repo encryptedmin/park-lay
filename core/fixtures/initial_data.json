@@ -1,0 +1,283 @@
+[
+{
+  "model": "core.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$XLycizXsdqSAMGPN9zxyeW$nke/6bLFz/ISYhN0s1ogBA5yLcWQ1B4GEHPlLGl6yIM=",
+    "last_login": "2026-05-11T16:30:47.146Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@parklay.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-05-07T00:53:52.823Z",
+    "is_employee": true,
+    "is_customer": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$huVPs8kZUm6OhyGqGNf9ps$cBuXDsCVaj2kSrJnjmUGJkMvhkcRL8gZsb8wfVVrDb8=",
+    "last_login": "2026-05-07T23:53:06.112Z",
+    "is_superuser": false,
+    "username": "odessy",
+    "first_name": "Dion",
+    "last_name": "Padua",
+    "email": "doapadua@cdk.edu.ph",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-05-07T05:45:51.024Z",
+    "is_employee": false,
+    "is_customer": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$vvR1le2hshYXtSXQxYZkZX$TCoPhImxQls+KCVmwXB0HCDeJGmLxViqe8gLcxq48M0=",
+    "last_login": "2026-05-07T06:08:35.040Z",
+    "is_superuser": false,
+    "username": "john",
+    "first_name": "cena",
+    "last_name": "padua",
+    "email": "dion@dion.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-05-07T06:08:33.074Z",
+    "is_employee": false,
+    "is_customer": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$djWyxU5wnWdFd3afbuevK8$pPlaqSVwVFDb+6eRbO/hC9GdstIiSwcL4zysT881RuM=",
+    "last_login": "2026-05-11T15:12:24.702Z",
+    "is_superuser": false,
+    "username": "d4delta",
+    "first_name": "dion odessy",
+    "last_name": "padua",
+    "email": "digitalfortress20@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-05-11T13:42:25.892Z",
+    "is_employee": false,
+    "is_customer": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.room",
+  "pk": 1,
+  "fields": {
+    "name": "JackaL",
+    "inclusions": "Massage with Extra Service!",
+    "price": "9999999.00",
+    "total_quantity": 5,
+    "image": "rooms/615091400_1277367040897824_4477088200589297944_n.jpg"
+  }
+},
+{
+  "model": "core.room",
+  "pk": 2,
+  "fields": {
+    "name": "odessy",
+    "inclusions": "walay tubig!",
+    "price": "7877887.00",
+    "total_quantity": 1,
+    "image": "rooms/614249733_1277367194231142_8047089844066636603_n.jpg"
+  }
+},
+{
+  "model": "core.room",
+  "pk": 3,
+  "fields": {
+    "name": "ITE Room",
+    "inclusions": "walang wifi dito",
+    "price": "78787.00",
+    "total_quantity": 3,
+    "image": "rooms/615432320_1277367274231134_518932416822236979_n.jpg"
+  }
+},
+{
+  "model": "core.room",
+  "pk": 4,
+  "fields": {
+    "name": "CdK",
+    "inclusions": "heart ache!",
+    "price": "8732187.00",
+    "total_quantity": 4,
+    "image": "rooms/615406476_1277367130897815_5645539474483615233_n.jpg"
+  }
+},
+{
+  "model": "core.room",
+  "pk": 5,
+  "fields": {
+    "name": "System Overhaul!",
+    "inclusions": "Almost full blown hotel site!",
+    "price": "87987897.00",
+    "total_quantity": 4,
+    "image": "rooms/614249733_1277367194231142_8047089844066636603_n_zBIhODB.jpg"
+  }
+},
+{
+  "model": "core.gcashaccount",
+  "pk": 1,
+  "fields": {
+    "account_name": "fakeaccount.com",
+    "account_number": "09090807689",
+    "qr_code": "gcash_qr/gcash-qr.png",
+    "created_at": "2026-05-07T08:15:45.833Z"
+  }
+},
+{
+  "model": "core.booking",
+  "pk": 1,
+  "fields": {
+    "customer": null,
+    "guest_name": "dion odessy padua",
+    "room": 1,
+    "check_in": "2026-05-08",
+    "check_out": "2026-05-14",
+    "total_price": "59999994.00",
+    "booking_type": "Walk-in",
+    "status": "Confirmed",
+    "gcash_reference": null,
+    "payment_proof": "",
+    "created_at": "2026-05-07T05:08:10.444Z"
+  }
+},
+{
+  "model": "core.booking",
+  "pk": 2,
+  "fields": {
+    "customer": 2,
+    "guest_name": "Dion Padua",
+    "room": 1,
+    "check_in": "2026-05-07",
+    "check_out": "2026-05-11",
+    "total_price": "39999996.00",
+    "booking_type": "Online",
+    "status": "Completed",
+    "gcash_reference": "21231324",
+    "payment_proof": "payments/gcash-qr.png",
+    "created_at": "2026-05-07T05:52:12.743Z"
+  }
+},
+{
+  "model": "core.booking",
+  "pk": 3,
+  "fields": {
+    "customer": 2,
+    "guest_name": "Dion Padua",
+    "room": 1,
+    "check_in": "2026-05-07",
+    "check_out": "2026-05-14",
+    "total_price": "69999993.00",
+    "booking_type": "Online",
+    "status": "Confirmed",
+    "gcash_reference": "465456478",
+    "payment_proof": "payments/615435854_1277369090897619_8395609496064575118_n.jpg",
+    "created_at": "2026-05-07T06:05:22.054Z"
+  }
+},
+{
+  "model": "core.booking",
+  "pk": 4,
+  "fields": {
+    "customer": 2,
+    "guest_name": "Dion Padua",
+    "room": 3,
+    "check_in": "2026-05-10",
+    "check_out": "2026-05-30",
+    "total_price": "1575740.00",
+    "booking_type": "Online",
+    "status": "Confirmed",
+    "gcash_reference": "123123123",
+    "payment_proof": "payments/gcash-qr_KEyn0kR.png",
+    "created_at": "2026-05-07T06:45:04.878Z"
+  }
+},
+{
+  "model": "core.booking",
+  "pk": 5,
+  "fields": {
+    "customer": null,
+    "guest_name": "john cena",
+    "room": 2,
+    "check_in": "2026-05-07",
+    "check_out": "2026-05-08",
+    "total_price": "7877887.00",
+    "booking_type": "Walk-in",
+    "status": "Completed",
+    "gcash_reference": null,
+    "payment_proof": "",
+    "created_at": "2026-05-07T07:50:19.467Z"
+  }
+},
+{
+  "model": "core.booking",
+  "pk": 6,
+  "fields": {
+    "customer": 4,
+    "guest_name": "dion odessy padua",
+    "room": 1,
+    "check_in": "2026-05-12",
+    "check_out": "2026-05-13",
+    "total_price": "9999999.00",
+    "booking_type": "Online",
+    "status": "Confirmed",
+    "gcash_reference": "1231",
+    "payment_proof": "",
+    "created_at": "2026-05-11T13:46:46.199Z"
+  }
+},
+{
+  "model": "core.booking",
+  "pk": 7,
+  "fields": {
+    "customer": null,
+    "guest_name": "asasa",
+    "room": 1,
+    "check_in": "2026-05-14",
+    "check_out": "2026-05-16",
+    "total_price": "19999998.00",
+    "booking_type": "Walk-in",
+    "status": "Confirmed",
+    "gcash_reference": null,
+    "payment_proof": "",
+    "created_at": "2026-05-11T16:04:37.057Z"
+  }
+},
+{
+  "model": "core.booking",
+  "pk": 8,
+  "fields": {
+    "customer": null,
+    "guest_name": "Dion",
+    "room": 1,
+    "check_in": "2026-05-29",
+    "check_out": "2026-06-05",
+    "total_price": "69999993.00",
+    "booking_type": "Walk-in",
+    "status": "Confirmed",
+    "gcash_reference": null,
+    "payment_proof": "",
+    "created_at": "2026-05-11T16:38:00.209Z"
+  }
+}
+]

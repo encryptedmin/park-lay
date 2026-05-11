@@ -1,27 +1,45 @@
-"""
-Django settings for parklaysuites project.
-"""
-
 import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+IS_RENDER = bool(os.environ.get('RENDER'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-dummy-key-change-this-in-production'
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'django-insecure-local-dev-key-change-this-in-production',
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False' if IS_RENDER else 'True').lower() in {
+    '1',
+    'true',
+    'yes',
+    'on',
+}
 
-ALLOWED_HOSTS = [
+ALLOWED_HOSTS = [host.strip() for host in os.environ.get('ALLOWED_HOSTS', '').split(',') if host.strip()]
+ALLOWED_HOSTS += [
     ".onrender.com",
     "127.0.0.1",
     "localhost",
+    "testserver",
 ]
+if os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
+    ALLOWED_HOSTS.append(os.environ['RENDER_EXTERNAL_HOSTNAME'])
+
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
+    if origin.strip()
+]
+if os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
+    CSRF_TRUSTED_ORIGINS.append(f"https://{os.environ['RENDER_EXTERNAL_HOSTNAME']}")
 
 # Application definition
 INSTALLED_APPS = [
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -63,12 +81,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'parklaysuites.wsgi.application'
 
 # Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.environ.get('DATABASE_URL'):
+    import dj_database_url
+
+    DATABASES = {
+        'default': dj_database_url.config(
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -97,19 +125,46 @@ USE_TZ = True
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_URL = 'static/'
-# Explicitly tell Django where to find your static folder
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'core', 'static'),
-]
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+}
 
 # Media files configuration (for uploading Room photos and GCash receipts)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Set Custom User Model
 AUTH_USER_MODEL = 'core.User'
 
 # Redirects
 LOGIN_URL = 'login'
+
+if IS_RENDER and not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'True').lower() in {
+        '1',
+        'true',
+        'yes',
+        'on',
+    }
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = int(os.environ.get('SECURE_HSTS_SECONDS', '3600'))
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = os.environ.get(
+        'SECURE_HSTS_INCLUDE_SUBDOMAINS',
+        'False',
+    ).lower() in {'1', 'true', 'yes', 'on'}
+    SECURE_HSTS_PRELOAD = os.environ.get('SECURE_HSTS_PRELOAD', 'False').lower() in {
+        '1',
+        'true',
+        'yes',
+        'on',
+    }
 
