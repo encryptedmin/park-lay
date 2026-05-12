@@ -67,13 +67,19 @@
         }
 
         .dashboard-btn {
-            padding: 14px 22px;
-            border-radius: 12px;
+            padding: 12px 20px;
+            border-radius: 10px;
             background: #0f172a;
             color: white;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
             transition: 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
         }
 
         .dashboard-btn:hover {
@@ -157,6 +163,31 @@
 
         .cancel-btn:hover {
             background: #d97706;
+        }
+
+        .payment-proof-wrapper {
+            margin-top: 16px;
+        }
+
+        .payment-proof-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #334155;
+        }
+
+        .payment-proof-image {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .payment-proof-image:hover {
+            transform: scale(1.05);
         }
 
         .empty-state {
@@ -271,11 +302,41 @@
                     ₱{{ booking.total_price }}
                 </p>
 
+                {% if booking.payment_proof %}
+
+<div class="payment-proof-wrapper">
+
+    <p class="payment-proof-title">
+        Proof of Payment
+    </p>
+
+    <a
+        href="{{ booking.payment_proof.url }}"
+        target="_blank"
+    >
+
+        <img
+            src="{{ booking.payment_proof.url }}"
+            alt="Proof of Payment"
+            class="payment-proof-image"
+        >
+
+    </a>
+
+</div>
+
+{% endif %}
+
                 <div class="booking-actions">
 
                     <a
                         href="{% url 'confirm_booking' booking.id %}"
                         class="dashboard-btn confirm-btn"
+                        onclick="
+                            return confirm(
+                                'Confirm this booking reservation?'
+                            );
+                        "
                     >
                         Confirm
                     </a>
@@ -283,6 +344,11 @@
                     <a
                         href="{% url 'reject_booking' booking.id %}"
                         class="dashboard-btn reject-btn"
+                        onclick="
+                            return confirm(
+                                'Reject this booking request?'
+                            );
+                        "
                     >
                         Reject
                     </a>
@@ -340,6 +406,11 @@
                     <form
                         method="POST"
                         action="{% url 'cancel_booking' booking.id %}"
+                        onsubmit="
+                            return confirm(
+                                'Are you sure you want to cancel this active booking? This action cannot be undone.'
+                            );
+                        "
                     >
 
                         {% csrf_token %}
