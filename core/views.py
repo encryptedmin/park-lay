@@ -1254,3 +1254,21 @@ def delete_gcash_account(request, account_id):
         )
 
     return redirect('employee_dashboard')
+
+@login_required
+def payment_information(request):
+
+    if not request.user.is_employee:
+        return redirect('customer_home')
+
+    accounts = GCashAccount.objects.all().order_by(
+        '-created_at'
+    )
+
+    return render(
+        request,
+        'core/payment_information.html',
+        {
+            'accounts': accounts,
+        },
+    )

@@ -70,7 +70,11 @@ urlpatterns = [
         views.employee_dashboard,
         name='employee_dashboard',
     ),
-
+    path(
+    'employee/payments/',
+    views.payment_information,
+    name='payment_information',
+    ),
     path(
         'employee/booking/<int:booking_id>/confirm/',
         views.confirm_booking,
