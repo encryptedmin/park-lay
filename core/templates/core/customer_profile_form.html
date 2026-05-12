@@ -1,23 +1,232 @@
-{% extends 'core/layouts/base.html' %}
+<!DOCTYPE html>
 
-{% block content %}
-<section class="payment-account-page">
-    <div class="payment-account-form-card">
-        <a href="{% url 'manage_customers' %}" class="back-link">Back to customers</a>
-        <h1>{{ title }}</h1>
-        <p>Create or update the customer's login profile and contact details.</p>
+<html lang="en">
 
-        <form method="post" novalidate>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {{ title }} | Park-Lay Suites
+    </title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .page-wrapper {
+            min-height: 100vh;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-card {
+            width: 100%;
+            max-width: 700px;
+            background: white;
+            border-radius: 28px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+
+        .form-header {
+            margin-bottom: 35px;
+        }
+
+        .form-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            font-size: 15px;
+            transition: 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 14px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-btn {
+            padding: 12px 22px;
+            border-radius: 10px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s ease;
+        }
+
+        .dashboard-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .save-btn {
+            background: #16a34a;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: #15803d;
+        }
+
+        .cancel-btn {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .cancel-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .errorlist {
+            list-style: none;
+            margin-top: 8px;
+            color: #dc2626;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+
+            .page-wrapper {
+                padding: 20px;
+            }
+
+            .form-card {
+                padding: 30px 24px;
+            }
+
+            .form-header h1 {
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<section class="page-wrapper">
+
+    <div class="form-card">
+
+        <div class="form-header">
+
+            <h1>
+                {{ title }}
+            </h1>
+
+            <p>
+                Update customer account details and guest information.
+            </p>
+
+        </div>
+
+        <form method="POST">
+
             {% csrf_token %}
 
-            {% if form.non_field_errors %}
-            <div class="form-alert form-alert-error">{{ form.non_field_errors }}</div>
-            {% endif %}
+            {% for field in form %}
 
-            {{ form.as_p }}
+            <div class="form-group">
 
-            <button type="submit" class="btn btn-primary">{{ button_label }}</button>
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+
+                {{ field }}
+
+                {{ field.errors }}
+
+            </div>
+
+            {% endfor %}
+
+            <div class="form-actions">
+
+                <button
+    type="submit"
+    class="dashboard-btn save-btn"
+    onclick="
+        return confirm(
+            'Save changes to this customer profile?'
+        );
+    "
+>
+    {{ button_label }}
+</button>
+
+                <a
+                    href="{% url 'manage_customers' %}"
+                    class="dashboard-btn cancel-btn"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
         </form>
+
     </div>
+
 </section>
-{% endblock %}
+
+</body>
+
+</html>

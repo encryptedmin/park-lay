@@ -31,24 +31,95 @@ Luxury Suites | Park-Lay Suites
 
     </div>
 
-    <div class="rooms-list section">
+    <div class="section">
 
         <div class="container">
+
+            <div
+                style="
+                    background: white;
+                    padding: 24px;
+                    border-radius: 20px;
+                    margin-bottom: 40px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+                "
+            >
+
+                <h2 style="margin-bottom: 20px;">
+                    Check Room Availability
+                </h2>
+
+                <div
+                    style="
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                        gap: 16px;
+                    "
+                >
+
+                    <div>
+
+                        <label>
+                            Check In
+                        </label>
+
+                        <input
+                            type="date"
+                            id="availability-check-in"
+                            min="{{ today|date:'Y-m-d' }}"
+                            style="
+                                width: 100%;
+                                padding: 14px;
+                                border-radius: 12px;
+                                border: 1px solid #d1d5db;
+                            "
+                        >
+
+                    </div>
+
+                    <div>
+
+                        <label>
+                            Check Out
+                        </label>
+
+                        <input
+                            type="date"
+                            id="availability-check-out"
+                            min="{{ today|date:'Y-m-d' }}"
+                            style="
+                                width: 100%;
+                                padding: 14px;
+                                border-radius: 12px;
+                                border: 1px solid #d1d5db;
+                            "
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
 
             <div class="grid-3 room-grid">
 
                 {% for room in rooms %}
 
-                <div class="room-card fade-up">
+                <div
+                    class="room-card fade-up"
+                    data-room-id="{{ room.id }}"
+                >
 
                     <div class="room-image-wrapper">
 
                         {% if room.image %}
+
                         <img
                             src="{{ room.image.url }}"
                             alt="{{ room.name }}"
                             class="room-image"
                         >
+
                         {% endif %}
 
                     </div>
@@ -65,9 +136,22 @@ Luxury Suites | Park-Lay Suites
                             {{ room.inclusions|truncatewords:18 }}
                         </p>
 
+                        <div
+                            class="availability-status"
+                            style="
+                                margin-bottom: 16px;
+                                padding: 12px;
+                                border-radius: 12px;
+                                font-weight: 700;
+                                background: #f3f4f6;
+                            "
+                        >
+                            Select dates to check availability.
+                        </div>
+
                         <a
                             href="{% url 'book_room' room.id %}"
-                            class="btn btn-primary"
+                            class="btn btn-primary reserve-button"
                         >
                             Reserve Suite
                         </a>
@@ -85,5 +169,104 @@ Luxury Suites | Park-Lay Suites
     </div>
 
 </section>
+
+<script>
+
+const checkInField =
+    document.getElementById('availability-check-in');
+
+const checkOutField =
+    document.getElementById('availability-check-out');
+
+const roomCards =
+    document.querySelectorAll('[data-room-id]');
+
+
+async function loadAvailability() {
+
+    const checkIn =
+        checkInField.value;
+
+    const checkOut =
+        checkOutField.value;
+
+    if (!checkIn || !checkOut) {
+        return;
+    }
+
+    const response = await fetch(
+        `/availability/?check_in=${checkIn}&check_out=${checkOut}`
+    );
+
+    const data = await response.json();
+
+    if (!data.success) {
+        return;
+    }
+
+    roomCards.forEach((card) => {
+
+        const roomId =
+            parseInt(card.dataset.roomId);
+
+        const roomData =
+            data.rooms.find((room) => room.id === roomId);
+
+        if (!roomData) {
+            return;
+        }
+
+        const statusElement =
+            card.querySelector('.availability-status');
+
+        const reserveButton =
+            card.querySelector('.reserve-button');
+
+        if (roomData.is_available) {
+
+            statusElement.innerHTML = `
+                ${roomData.available_rooms}
+                out of
+                ${roomData.total_quantity}
+                rooms available
+            `;
+
+            statusElement.style.background = '#dcfce7';
+            statusElement.style.color = '#166534';
+
+            reserveButton.href =
+                `/book/${roomId}/?check_in=${checkIn}&check_out=${checkOut}`;
+
+            reserveButton.style.pointerEvents = 'auto';
+            reserveButton.style.opacity = '1';
+
+        } else {
+
+            statusElement.innerHTML =
+                'Fully booked for selected dates';
+
+            statusElement.style.background = '#fee2e2';
+            statusElement.style.color = '#991b1b';
+
+            reserveButton.removeAttribute('href');
+
+            reserveButton.style.pointerEvents = 'none';
+            reserveButton.style.opacity = '0.5';
+        }
+    });
+}
+
+
+checkInField.addEventListener(
+    'change',
+    loadAvailability,
+);
+
+checkOutField.addEventListener(
+    'change',
+    loadAvailability,
+);
+
+</script>
 
 {% endblock %}

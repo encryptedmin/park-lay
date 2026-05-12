@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Employee Dashboard | Park-Lay Suites
+    </title>
+
+    {% load static %}
+
+    <link
+        rel="stylesheet"
+        href="{% static 'core/css/style.css' %}"
+    >
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .dashboard-page {
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .dashboard-title h1 {
+            font-size: 42px;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-title p {
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-btn {
+            padding: 14px 22px;
+            border-radius: 12px;
+            background: #0f172a;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+        .dashboard-btn:hover {
+            background: #1e293b;
+            transform: translateY(-2px);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 22px;
+            padding: 28px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+
+        .dashboard-card h2 {
+            margin-bottom: 24px;
+            font-size: 26px;
+        }
+
+        .booking-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 18px;
+            transition: 0.3s ease;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+
+        .booking-card h3 {
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .booking-card p {
+            margin-bottom: 8px;
+            color: #475569;
+        }
+
+        .booking-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0f172a;
+        }
+
+        .booking-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        .confirm-btn {
+            background: #16a34a;
+        }
+
+        .confirm-btn:hover {
+            background: #15803d;
+        }
+
+        .reject-btn {
+            background: #dc2626;
+        }
+
+        .reject-btn:hover {
+            background: #b91c1c;
+        }
+
+        .cancel-btn {
+            background: #f59e0b;
+        }
+
+        .cancel-btn:hover {
+            background: #d97706;
+        }
+
+        .empty-state {
+            color: #64748b;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        @media (max-width: 768px) {
+
+            .dashboard-page {
+                padding: 20px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-title h1 {
+                font-size: 32px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<section class="dashboard-page">
+
+    <div class="dashboard-header">
+
+        <div class="dashboard-title">
+
+            <h1>
+                Employee Dashboard
+            </h1>
+
+            <p>
+                Manage reservations, rooms, guests, and operations.
+            </p>
+
+        </div>
+
+        <div class="dashboard-actions">
+
+            <a
+                href="{% url 'walkin_booking' %}"
+                class="dashboard-btn"
+            >
+                Walk-In Booking
+            </a>
+
+            <a
+                href="{% url 'add_room' %}"
+                class="dashboard-btn"
+            >
+                Add Room
+            </a>
+
+            <a
+                href="{% url 'manage_customers' %}"
+                class="dashboard-btn"
+            >
+                Customers
+            </a>
+
+            <a
+                href="{% url 'logout' %}"
+                class="dashboard-btn"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="dashboard-card">
+
+            <h2>
+                Pending Bookings
+            </h2>
+
+            {% for booking in pending_bookings %}
+
+            <div class="booking-card">
+
+                <h3>
+                    {{ booking.guest_name }}
+                </h3>
+
+                <p>
+                    Room:
+                    <strong>
+                        {{ booking.room.name }}
+                    </strong>
+                </p>
+
+                <p>
+                    Stay:
+                    {{ booking.check_in }}
+                    →
+                    {{ booking.check_out }}
+                </p>
+
+                <p class="booking-price">
+                    ₱{{ booking.total_price }}
+                </p>
+
+                <div class="booking-actions">
+
+                    <a
+                        href="{% url 'confirm_booking' booking.id %}"
+                        class="dashboard-btn confirm-btn"
+                    >
+                        Confirm
+                    </a>
+
+                    <a
+                        href="{% url 'reject_booking' booking.id %}"
+                        class="dashboard-btn reject-btn"
+                    >
+                        Reject
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="empty-state">
+                No pending bookings.
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="dashboard-card">
+
+            <h2>
+                Active Bookings
+            </h2>
+
+            {% for booking in confirmed_bookings %}
+
+            <div class="booking-card">
+
+                <h3>
+                    {{ booking.guest_name }}
+                </h3>
+
+                <p>
+                    Room:
+                    <strong>
+                        {{ booking.room.name }}
+                    </strong>
+                </p>
+
+                <p>
+                    Stay:
+                    {{ booking.check_in }}
+                    →
+                    {{ booking.check_out }}
+                </p>
+
+                <p class="booking-price">
+                    ₱{{ booking.total_price }}
+                </p>
+
+                <div class="booking-actions">
+
+                    {% if booking.can_cancel %}
+
+                    <form
+                        method="POST"
+                        action="{% url 'cancel_booking' booking.id %}"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="dashboard-btn cancel-btn"
+                        >
+                            Cancel Booking
+                        </button>
+
+                    </form>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="empty-state">
+                No active bookings.
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+
+</html>

@@ -53,6 +53,24 @@ Reserve Suite | Park-Lay Suites
 
                     </ul>
 
+                    <div
+                        style="
+                            margin-top: 20px;
+                            padding: 16px;
+                            border-radius: 12px;
+                            background: #f3f4f6;
+                            font-weight: bold;
+                            font-size: 18px;
+                        "
+                    >
+
+                        Total Price:
+                        <span id="total-price">
+                            ₱0
+                        </span>
+
+                    </div>
+
                 </div>
 
             </div>
@@ -150,5 +168,88 @@ Reserve Suite | Park-Lay Suites
     </div>
 
 </section>
+
+<script>
+
+const checkInField =
+    document.getElementById('id_check_in');
+
+const checkOutField =
+    document.getElementById('id_check_out');
+
+const totalPriceElement =
+    document.getElementById('total-price');
+
+const roomPricePerNight =
+    parseFloat('{{ room.price }}');
+
+
+function updateTotalPrice() {
+
+    if (
+        !checkInField
+        ||
+        !checkOutField
+        ||
+        !totalPriceElement
+    ) {
+        return;
+    }
+
+    if (
+        !checkInField.value
+        ||
+        !checkOutField.value
+    ) {
+
+        totalPriceElement.innerText =
+            '₱0';
+
+        return;
+    }
+
+    const checkIn =
+        new Date(checkInField.value);
+
+    const checkOut =
+        new Date(checkOutField.value);
+
+    let nights =
+        Math.ceil(
+            (checkOut - checkIn)
+            /
+            (1000 * 60 * 60 * 24)
+        );
+
+    if (
+        isNaN(nights)
+        ||
+        nights <= 0
+    ) {
+        nights = 1;
+    }
+
+    const total =
+        roomPricePerNight * nights;
+
+    totalPriceElement.innerText =
+        `₱${total.toLocaleString()}`;
+}
+
+
+checkInField.addEventListener(
+    'change',
+    updateTotalPrice,
+);
+
+checkOutField.addEventListener(
+    'change',
+    updateTotalPrice,
+);
+
+
+updateTotalPrice();
+
+</script>
 
 {% endblock %}
